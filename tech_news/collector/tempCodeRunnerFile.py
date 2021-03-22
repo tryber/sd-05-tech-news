@@ -1,0 +1,7 @@
+# "timestamp": timestamp,
+# "writer": author,
+# "shares_count": shares_count,
+# "comments_count": comments_count,
+# "summary": summary,
+# "sources": [sources],
+# "categories": categories,
