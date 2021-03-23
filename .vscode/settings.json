@@ -8,5 +8,10 @@
     "python.formatting.blackArgs": [
         "-l 79"
     ],
-    "python.formatting.provider": "black"
+    "python.formatting.provider": "black", 
+    "python.pythonPath": "/home/kylefelipe/trybe/sd-05-tech-news/.venv/bin/python",
+    "cSpell.words": [
+        "parsel",
+        "pymongo"
+    ]
 }

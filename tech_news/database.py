@@ -9,6 +9,7 @@ db = client.tech_news
 
 
 def create_news(data):
+    print("fui chamado ssssiiimmm")
     db.news.insert_many(data)
 
 
