@@ -27,3 +27,26 @@ def find_news():
 
 def search_news(query):
     return list(db.news.find(query))
+
+
+def top5_news_agreggation():
+    return list(db.news.aggregate([
+        {"$addFields":
+            {"somaSocial": {"$add": ["$comments_count", "$shares_count"]}}},
+        {"$sort": {"somaSocial": -1, "title": 1}},
+        {"$limit": 5},
+        ]))
+
+
+def top5_news_categories_aggregation():
+    return list(db.news.aggregate([
+        {"$unwind": "$categories"},
+        {"$group": {"_id": "$categories"}},
+        {"$sort": {"_id": 1}},
+        {"$limit": 5},
+        {"$project": {"_id": 0, "categories": "$_id"}}
+        ]))
+
+#   https://docs.mongodb.com/manual/reference/operator/aggregation/group/
+#   https://docs.mongodb.com/manual/reference/operator/aggregation/unwind/
+#   https://docs.mongodb.com/manual/reference/operator/projection/positional/

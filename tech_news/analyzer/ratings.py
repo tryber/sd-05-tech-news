@@ -1,6 +1,11 @@
+from tech_news import database
+
+
 def top_5_news():
-    """Seu código deve vir aqui"""
+    noticias = database.top5_news_agreggation()
+    return [(item["title"], item["url"]) for item in noticias]
 
 
 def top_5_categories():
-    """Seu código deve vir aqui"""
+    categorias = database.top5_news_categories_aggregation()
+    return [categoria["categories"] for categoria in categorias]
