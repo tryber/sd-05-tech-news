@@ -90,10 +90,6 @@ def optionSeven():
     print("Encerrando script\n")
 
 
-def optionDefault():
-    print("Opção inválida", file=sys.stderr)
-
-
 def analyzer_menu():
     option = getInput()
     switcher = {
@@ -105,4 +101,4 @@ def analyzer_menu():
         "6": optionSix,
         "7": optionSeven,
     }
-    switcher.get(option, optionDefault)()
+    switcher.get(option, lambda: print("Opção inválida", file=sys.stderr))()
