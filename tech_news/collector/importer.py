@@ -1,5 +1,6 @@
 import csv
 
+
 def csv_importer(filepath):
     try:
         assert filepath.endswith('.csv')
