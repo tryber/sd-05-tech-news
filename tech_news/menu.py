@@ -40,7 +40,6 @@ def collector_menu():
 
 
 def analyzer_menu():
-    """Seu código deve vir aqui"""
     option = input(
         "Selecione uma das opções a seguir:\n"
         " 1 - Buscar notícias por título;\n"
@@ -51,6 +50,7 @@ def analyzer_menu():
         " 6 - Listar top 5 categorias;\n"
         " 7 - Sair.\n"
     )
+    """Seu código deve vir aqui"""
     if option == "1":
         result = input("Digite o título:")
         title = search_by_title(result)

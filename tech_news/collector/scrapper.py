@@ -16,42 +16,44 @@ def fetch_content(url, timeout=3, delay=0.5):
         return response.text
 
 
-def news(url, selector):
-    title = selector.css(".tec--article__header__title::text").get()
-    timestamp = selector.css("#js-article-date::attr(datetime)").get()
-    writer = selector.css("a.tec--author__info__link::text").get()
-    shares_count = selector.css(
-        ".tec--toolbar__item::text"
-    ).get().strip()
-    comments_count = selector.css(
-        "#js-comments-btn::attr(data-count)"
-    ).get().strip()
-    summary = selector.css(".tec--article__body p::text").get()
-    sources = selector.css(".z--mb-16 a::text").getall()
-    categories = selector.css("#js-categories a::text").getall()
-
-    return {
-        "url": url,
-        "title": title,
-        "timestamp": timestamp,
-        "writer": writer,
-        "shares_count": int(shares_count),
-        "comments_count": int(comments_count),
-        "summary": summary,
-        "sources": sources,
-        "categories": categories,
-    }
-
-
 def scrape(fetcher, pages=1):
-    url = "https://www.tecmundo.com.br/novidades"
-    news_list = []
-    for page in range(1, pages + 1):
-        selector = Selector(fetcher(f"{url}?page={page}"))
-        all_url = selector.css(
-            ".tec--list__item .tec--card__title__link::attr(href)"
-        ).getall()
-        for url in all_url:
-            selector = Selector(fetcher(url))
-            news_list.append(news(url, selector))
-    return news_list
+    list_news = []
+    page = 1
+    while page <= pages:
+        res = fetcher("https://www.tecmundo.com.br/novidades" + "?page={page}")
+        selector = Selector(text=res)
+        for url in selector.css(".tec--list__item h3 a::attr(href)").getall():
+            selector_url = Selector(text=fetcher(url))
+            list_news.append(
+                {
+                    "url": url,
+                    "title": selector_url.css(
+                        ".tec--article__header__title::text"
+                    ).get(),
+                    "timestamp": selector_url.css(
+                        ".tec--timestamp__item time::attr(datetime)"
+                    ).get(),
+                    "writer": selector_url.css(
+                        ".tec--author__info__link::text"
+                    ).get(),
+                    "shares_count": int(
+                        selector_url.css(".tec--toolbar__item::text").re_first(
+                            r"[0-9]+"
+                        )
+                    ),
+                    "comments_count": int(
+                        selector_url.css("#js-comments-btn::text").re_first(
+                            r"[0-9]+"
+                        )
+                    ),
+                    "summary": selector_url.css(
+                        ".tec--article__body *::text"
+                    ).get(),
+                    "sources": selector_url.css(".z--mb-16 a::text").getall(),
+                    "categories": selector_url.css(
+                        "#js-categories a::text"
+                    ).getall(),
+                }
+            )
+        page += 1
+    return list_news
