@@ -39,8 +39,8 @@ def collector_menu():
         print("Opção inválida", file=sys.stderr)
 
 
-def analyzer_menu():
-    option = input(
+def getInput():
+    return input(
         "Selecione uma das opções a seguir:\n"
         " 1 - Buscar notícias por título;\n"
         " 2 - Buscar notícias por data;\n"
@@ -50,32 +50,59 @@ def analyzer_menu():
         " 6 - Listar top 5 categorias;\n"
         " 7 - Sair.\n"
     )
-    """Seu código deve vir aqui"""
-    if option == "1":
-        result = input("Digite o título:")
-        title = search_by_title(result)
-        print(title)
-    elif option == "2":
-        result = input("Digite a data no formato aaaa-mm-dd:")
-        date = search_by_date(result)
-        print(date)
-    elif option == "3":
-        result = input("Digite a fonte:")
-        source = search_by_source(result)
-        print(source)
-    elif option == "4":
-        result = input("Digite a categoria:")
-        category = search_by_category(result)
-        print(category)
-    elif option == "5":
-        result = top_5_news()
-        print(result)
-    elif option == "6":
-        result = top_5_categories()
-        print(result)
-    elif option == "7":
-        print("Encerrando script\n")
-        return
-    else:
-        print("Opção inválida", file=sys.stderr)
-        return
+
+
+def optionOne():
+    result = input("Digite o título:")
+    title = search_by_title(result)
+    print(title)
+
+
+def optionTwo():
+    result = input("Digite a data no formato aaaa-mm-dd:")
+    date = search_by_date(result)
+    print(date)
+
+
+def optionThree():
+    result = input("Digite a fonte:")
+    source = search_by_source(result)
+    print(source)
+
+
+def optionFour():
+    result = input("Digite a categoria:")
+    category = search_by_category(result)
+    print(category)
+
+
+def optionFive():
+    result = top_5_news()
+    print(result)
+
+
+def optionSix():
+    result = top_5_categories()
+    print(result)
+
+
+def optionSeven():
+    print("Encerrando script\n")
+
+
+def optionDefault():
+    print("Opção inválida", file=sys.stderr)
+
+
+def analyzer_menu():
+    option = getInput()
+    switcher = {
+        "1": optionOne,
+        "2": optionTwo,
+        "3": optionThree,
+        "4": optionFour,
+        "5": optionFive,
+        "6": optionSix,
+        "7": optionSeven,
+    }
+    switcher.get(option, optionDefault)()
