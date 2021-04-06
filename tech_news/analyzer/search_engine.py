@@ -22,7 +22,7 @@ def search_by_date(date):
         raise ValueError("Data inválida")
     else:
         search_date = database.search_news({
-            'timestamp': { 
+            'timestamp': {
                 '$regex': date
              }
         })
@@ -33,8 +33,26 @@ def search_by_date(date):
 
 
 def search_by_source(source):
-    """Seu código deve vir aqui"""
+    search_source = database.search_news({
+        "sources": {
+            "$regex": source,
+            "$options": "i",
+        }
+    })
+    notices_list = []
+    for item in search_source:
+        notices_list.append((item['title'], item['url']))
+    return notices_list
 
 
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    search_category = database.search_news({
+        "categories": {
+            "$regex": category,
+            "$options": "i",
+        }
+    })
+    notices_list = []
+    for item in search_category:
+        notices_list.append((item['title'], item['url']))
+    return notices_list
