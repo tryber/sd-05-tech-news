@@ -28,6 +28,7 @@ def find_news():
 def search_news(query):
     return list(db.news.find(query))
 
+
 def top_5_news_aggregation():
     return list(db.news.aggregate([
         {
@@ -45,5 +46,30 @@ def top_5_news_aggregation():
         },
         {
             '$limit': 5
+        }
+    ]))
+
+
+def top_5_categories_aggregation():
+    return list(db.news.aggregate([
+        {
+            '$unwind': '$categories'
+        },
+        {
+            '$group': {
+                '_id': '$categories',
+            }
+        },
+        {
+            '$sort': {'_id': 1},
+        },
+        {
+            '$limit': 5
+        },
+        {
+            '$project': {
+                'categories': '$_id',
+                '_id': 0
+            }
         }
     ]))

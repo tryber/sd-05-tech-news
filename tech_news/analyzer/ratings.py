@@ -10,4 +10,8 @@ def top_5_news():
 
 
 def top_5_categories():
-    """Seu código deve vir aqui"""
+    top_5 = database.top_5_categories_aggregation()
+    notice_list = []
+    for item in top_5:
+        notice_list.append((item['categories']))
+    return notice_list
