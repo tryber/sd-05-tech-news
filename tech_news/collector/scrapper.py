@@ -13,8 +13,24 @@ def fetch_content(url, timeout=3, delay=0.5):
         return response.text
 
 
+def scrape(fetcher, pages=1):
+    url = "https://www.tecmundo.com.br/novidades"
+    all = []
+    for page in range(pages):
+        response = fetcher(url)
+        selector = Selector(text=response)
+        noticias = selector.css(
+            "div.tec--list__item > article > figure > a::attr(href)"
+        ).getall()
+        for noticia in noticias:
+            response_noticia = fetcher(noticia)
+            selector_noticia = Selector(text=response_noticia)
+            all.append(news(noticia, selector_noticia))
+    return all
+
+
 def news(url, selector_noticia):
-    title = selector_noticia.css("h1.tec--article__header__title::text")
+    title = selector_noticia.css("h1.tec--article__header__title::text").get()
     timestamp = selector_noticia.css(
         "div.tec--timestamp__item time::attr(datetime)"
     ).get()
@@ -44,19 +60,3 @@ def news(url, selector_noticia):
         "sources": sources,
         "categories": categories,
     }
-
-
-def scrape(fetcher, pages=1):
-    url_tec = "https://www.tecmundo.com.br/novidades"
-    all = []
-    for page in range(pages):
-        response = fetcher(url_tec)
-        selector = Selector(text=response)
-        noticias = selector.css(
-            "div.tec--list__item > article > figure > a::attr(href)"
-        ).getall()
-        for noticia in noticias:
-            response_noticia = fetcher(noticia)
-            selector_noticia = Selector(text=response_noticia)
-            all.append(news(noticia, selector_noticia))
-    return all
