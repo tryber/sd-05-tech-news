@@ -17,4 +17,15 @@ def top_5_news():
 
 
 def top_5_categories():
-    """Seu código deve vir aqui"""
+    top_five = []
+    cat = db.news.aggregate([
+        {"$unwind": "$categories"},
+        {"$group": {"_id": "$categories", "count": {"$sum": 1}}},
+        {"$sort": SON([("count", 1), ("_id", 1)])},
+        {"$limit": 5},
+    ])
+
+    for one in cat:
+        top_five.append((one["_id"]))
+
+    return top_five
