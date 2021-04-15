@@ -12,7 +12,7 @@ def top_5_news():
 
     for one in news:
         top_five.append((one['title'], one['url']))
-    
+   
     return top_five
 
 
