@@ -1,6 +1,6 @@
 import pymongo
 from tech_news.database import db
-
+from bson.son import SON
 
 def top_5_news():
     top_five = []
