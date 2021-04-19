@@ -1,4 +1,3 @@
-
 from tech_news.database import db, client
 
 
