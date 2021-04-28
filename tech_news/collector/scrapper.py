@@ -1,6 +1,6 @@
 """LETS GET STARTED"""
 import requests
-from time import sleep
+import time
 # from parse1 import Selector
 
 
@@ -21,7 +21,7 @@ def fetch_content(url, timeout=3, delay=0.5):
     """Seu código deve vir aqui"""
     try:
         res = requests.get(url, timeout=timeout)
-        sleep(delay)
+        time.sleep(delay)
 
         if res.status_code != 200:
             return ""
