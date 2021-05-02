@@ -1,16 +1,21 @@
 import requests
-import time
+from time import sleep
 from parsel import Selector
 
 
 def fetch_content(url, timeout=3, delay=0.5):
     """Seu código deve vir aqui"""
-    request = requests.get(url, timeout=timeout)
-    time.sleep(delay)
-    status = request.status_code
-    if status != 200:
+    timeout_exception = requests.Timeout
+    try:
+        response = requests.get(url, timeout=timeout)
+    except timeout_exception:
         return ""
-    return request.text
+    else:
+        status = response.status_code
+        if status != 200:
+            return ""
+        sleep(delay)
+        return response.text
 
 
 def scrape(fetcher, pages=1):
@@ -24,7 +29,7 @@ def scrape(fetcher, pages=1):
         list_news = selector.css(
             ".tec--list__item h3 a::attr(href)").getall()
         for each_news in list_news:
-            response = fetcher(each_news)
+            response = fetcher(each_news, delay=1)
             selector = Selector(text=response)
             url = each_news
             results.append(output_news(selector, url))
