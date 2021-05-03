@@ -1,26 +1,26 @@
-from tech_news.database import db, client
+from tech_news.database import search_news_agregation
 
 
 def top_5_news():
-    result = []
-    search_results = list(
-        db.news.aggregate(
-            [
-                {
-                    "$addFields": {
-                        "count": {"$sum": ["$shares_count", "$comments_count"]}
+    list_result = search_news_agregation(
+        [
+            {
+                "$addFields": {
+                    "popularity": {
+                        "$add": ["$shares_count", "$comments_count"]
                     }
-                },
-                {"$sort": {"count": -1, "title": 1}},
-                {"$limit": 5},
-            ]
-        )
+                }
+            },
+            {"$sort": {"popularity": -1, "title": 1}},
+            {"$limit": 5},
+        ]
     )
-    client.close()
-    for news in search_results:
-        result.append((news["title"], news["url"]))
-
-    return result
+    list_top5 = []
+    if list_result == []:
+        return []
+    for new in list_result:
+        list_top5.append((new["title"], new["url"]))
+    return list_top5
 
 
 def top_5_categories():
