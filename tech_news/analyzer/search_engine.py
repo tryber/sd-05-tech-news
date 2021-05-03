@@ -1,9 +1,10 @@
-from tech_news.database import search_news
+from tech_news import database
 from datetime import datetime
 
 
 def search_by_title(title):
-    by_title = search_news({"title": {"$regex": title, "$options": "-i"}})
+    by_title = database.search_news(
+        {"title": {"$regex": title, "$options": "-i"}})
     # for news in by_title:
     if len(by_title) == 0:
         return []
@@ -13,12 +14,12 @@ def search_by_title(title):
 def search_by_date(date):
     response = []
     try:
-        date_checked = datetime.strptime(date, "%Y/%m/%d")
-        print(date_checked)
-        by_date = search_news({"timestamp": {"$regex": date_checked}})
+        datetime.strptime(date, "%Y-%m-%d")
+        # print(date_checked)
     except ValueError:
         raise ValueError("Data inválida")
     else:
+        by_date = database.search_news({"timestamp": {"$regex": date}})
         if len(by_date) == 0:
             return []
         for news in by_date:
