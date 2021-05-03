@@ -10,6 +10,7 @@ from tech_news.analyzer.search_engine import search_by_source
 from tech_news.analyzer.search_engine import search_by_category
 from tech_news.analyzer.ratings import top_5_news
 from tech_news.analyzer.ratings import top_5_categories
+from tech_news.database import create_news
 
 
 first_menu = [
@@ -21,14 +22,14 @@ first_menu = [
 ]
 
 sec_menu = [
-    "Selecione uma das opções a seguir:",
-    "1 - Buscar notícias por título;",
-    "2 - Buscar notícias por data;",
-    "3 - Buscar notícias por fonte;",
-    "4 - Buscar notícias por categoria;",
-    "5 - Listar top 5 notícias;",
-    "6 - Listar top 5 categorias;",
-    "7 - Sair."
+    "\nSelecione uma das opções a seguir:",
+    " 1 - Buscar notícias por título;",
+    " 2 - Buscar notícias por data;",
+    " 3 - Buscar notícias por fonte;",
+    " 4 - Buscar notícias por categoria;",
+    " 5 - Listar top 5 notícias;",
+    " 6 - Listar top 5 categorias;",
+    " 7 - Sair."
 ]
 
 
@@ -56,7 +57,9 @@ def first_switching(option):
     if option == 1:
         selected = option_selected(
             "Digite o nome do arquivo CSV a ser importado:")
-        return csv_importer(selected)
+        news = csv_importer(selected)
+        return print(create_news(news))
+        # return csv_importer(selected)
 
     elif option == 2:
         selected = option_selected(
@@ -66,7 +69,8 @@ def first_switching(option):
     elif option == 3:
         selected = option_selected(
             "Digite a quantidade de páginas a serem raspadas:")
-        return scrape(fetch_content, pages=int(selected))
+        news = scrape(fetcher=fetch_content, pages=int(selected))
+        return print(create_news(news))
 
     elif option == 4:
         return print("Encerrando script")
@@ -144,11 +148,8 @@ def erro():
 
 
 def view(menu):
-    for idx in range(len(menu)):
-        if idx < len(menu):
-            print(menu[idx])
-        else:
-            print(menu[idx], end="")
+    for option in menu:
+        print(option)
     return input()
 
 

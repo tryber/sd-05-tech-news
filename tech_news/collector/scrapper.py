@@ -22,12 +22,10 @@ def scrape(fetcher, pages=1):
     """Seu código deve vir aqui"""
     link = "https://www.tecmundo.com.br/novidades"
     results = []
-    for page in range(1, pages+1):
+    for page in range(1, pages + 1):
         request = fetcher(f"{link}?page={page}")
-        # print("url", f"{link}?page={page}")
         selector = Selector(text=request)
-        list_news = selector.css(
-            ".tec--list__item h3 a::attr(href)").getall()
+        list_news = selector.css(".tec--list__item h3 a::attr(href)").getall()
         for each_news in list_news:
             response = fetcher(each_news, delay=1)
             selector = Selector(text=response)
@@ -39,23 +37,24 @@ def scrape(fetcher, pages=1):
 def output_news(selector, url):
     new = {}
     timestamp = selector.css(
-        ".tec--timestamp__item time::attr(datetime)").get()
+        ".tec--timestamp__item time::attr(datetime)"
+    ).get()
     title = selector.css("h1.tec--article__header__title::text").get()
     writer = selector.css(
-        "#js-author-bar p a.tec--author__info__link::text").get()
-    summary = selector.css(
-        ".tec--article__body p *::text").get()
+        "#js-author-bar p a.tec--author__info__link::text"
+    ).get()
+    summary = selector.css(".tec--article__body p *::text").get()
     sources = selector.css("div.z--mb-16 div a::text").getall()
 
     shares_count = selector.css(".tec--toolbar__item::text").get()
     shares_count = to_number(str(shares_count).replace(" Compartilharam", ""))
 
     comments_count = selector.css(
-        ".tec--toolbar__item #js-comments-btn::attr(data-count)").get()
+        ".tec--toolbar__item #js-comments-btn::attr(data-count)"
+    ).get()
     comments_count = to_number(comments_count)
 
     categories = selector.css("#js-categories a::text").getall()
-    # print(title)
     new["url"] = url
     new["title"] = title
     new["timestamp"] = timestamp
