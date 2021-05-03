@@ -48,7 +48,7 @@ def scraper(texto):
         .strip(),
         "sources": [source for source in m],
         "categories": seletor.css("a.tec--badge--primary::text").getall()
-  }
+    }
 
 
 def scrape(fetcher, pages=1):
