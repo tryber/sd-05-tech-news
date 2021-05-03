@@ -8,6 +8,8 @@ from tech_news.analyzer.search_engine import search_by_title
 from tech_news.analyzer.search_engine import search_by_date
 from tech_news.analyzer.search_engine import search_by_source
 from tech_news.analyzer.search_engine import search_by_category
+from tech_news.analyzer.ratings import top_5_news
+from tech_news.analyzer.ratings import top_5_categories
 
 
 first_menu = [
@@ -19,7 +21,7 @@ first_menu = [
 ]
 
 sec_menu = [
-    "\nSelecione uma das opções a seguir:",
+    "Selecione uma das opções a seguir:",
     "1 - Buscar notícias por título;",
     "2 - Buscar notícias por data;",
     "3 - Buscar notícias por fonte;",
@@ -35,15 +37,17 @@ def collector_menu():
         option = int(view(first_menu))
     except ValueError:
         print("Opção inválida", file=sys.stderr)
+        # return collector_menu()
     else:
         first_switching(option)
 
 
 def analyzer_menu():
     try:
-        option = view(sec_menu)
+        option = int(view(sec_menu))
     except ValueError:
         print("Opção inválida", file=sys.stderr)
+        # analyzer_menu()
     else:
         sec_switching(option)
 
@@ -52,7 +56,7 @@ def first_switching(option):
     if option == 1:
         selected = option_selected(
             "Digite o nome do arquivo CSV a ser importado:")
-        print(csv_importer(selected))
+        return csv_importer(selected)
 
     elif option == 2:
         selected = option_selected(
@@ -65,83 +69,87 @@ def first_switching(option):
         return scrape(fetch_content, pages=int(selected))
 
     elif option == 4:
-        print("Encerrando script")
-        return "Encerrando script"
+        return print("Encerrando script")
     else:
         return print("Opção inválida", file=sys.stderr)
 
 
 def sec_switching(option):
-    options = {
-        "1": first,
-        "2": second,
-        "3": third,
-        "4": forth,
-        "5": fifth,
-        "6": sixth,
-        "7": seventh,
-    }
-    selected = options.get(option, "Opção inválida", file=sys.stderr)
-    print("teste", selected())
-    # ("Opção inválida")
+    try:
+        options = {
+            "1": first,
+            "2": second,
+            "3": third,
+            "4": forth,
+            "5": fifth,
+            "6": sixth,
+            "7": seventh,
+        }
+
+        if not (1 > option > 7):
+            option = str(option)
+            selected = options.get(option)
+            selected()
+    except Exception:
+        return erro()
 
 
 def first():
-    # if option == 1:
     selected = option_selected(
         "Digite o título:")
-    print(search_by_title(selected))
-    analyzer_menu()
+    return print(search_by_title(selected))
+    # analyzer_menu()
 
 
 def second():
-    # if option == 2:
     selected = option_selected(
         "Digite a data no formato aaaa-mm-dd:")
-    print(search_by_date(selected))
-    analyzer_menu()
+    return print(search_by_date(selected))
+    # analyzer_menu()
 
 
 def third():
-    # if option == 3:
     selected = option_selected(
         "Digite a fonte:")
-    print(search_by_source(selected))
-    analyzer_menu()
+    return print(search_by_source(selected))
+    # analyzer_menu()
 
 
 def forth():
-    #   if option == 4:
     selected = option_selected(
         "Digite a categoria:")
-    print(search_by_category(selected))
-    analyzer_menu()
+    return print(search_by_category(selected))
+    # analyzer_menu()
 
 
 def fifth():
-    #   if option == 5:
     selected = option_selected(
-        "")
-    return selected
+        "Filtrar por noticias")
+    return top_5_news(selected)
 
 
 def sixth():
-    # if option == 6:
     selected = option_selected(
-        "")
-    return selected
+        "Filtrar por categorias")
+    return top_5_categories(selected)
 
 
 def seventh():
-    #   if option == 7:
-    # print("Encerrando script")
-    return "Encerrando script"
+    return print("Encerrando script")
+
+
+def erro():
+    return print("Opção inválida", file=sys.stderr)
+    # return analyzer_menu()
 
 
 def view(menu):
-    for men in menu:
-        print(men)
-    return input("Opção: ")
+    for idx in range(len(menu)):
+        if idx < len(menu):
+            print(menu[idx])
+        else:
+            print(menu[idx], end="")
+    return input()
 
 
 def option_selected(text_supply):
