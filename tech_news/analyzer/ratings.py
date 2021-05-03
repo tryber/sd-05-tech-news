@@ -24,4 +24,17 @@ def top_5_news():
 
 
 def top_5_categories():
-    """Seu código deve vir aqui"""
+    list_result = search_news_agregation(
+        [
+            {"$unwind": "$categories"},
+            {"$group": {"_id": "$categories", "count": {"$sum": 1}}},
+            {"$sort": {"count": -1, "_id": 1}},
+            {"$limit": 5},
+        ]
+    )
+    list_top5_categories = []
+    if list_result == []:
+        return []
+    for new in list_result:
+        list_top5_categories.append((new["_id"]))
+    return list_top5_categories
