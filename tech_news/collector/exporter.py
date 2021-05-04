@@ -8,7 +8,7 @@ def csv_exporter(filepath):
         raise ValueError("Formato invalido")
 
     with open(filepath, "w") as file:
-        csv_writer = csv.DictWriter(file, delimiter=";", header_ok=[
+        csv_writer = csv.DictWriter(file, delimiter=";", fieldnames=[
             "url",
             "title",
             "timestamp",
