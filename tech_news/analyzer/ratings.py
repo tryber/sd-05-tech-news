@@ -13,7 +13,5 @@ def top_5_news():
     return [(item["title"], item["url"]) for item in resultado][:5]
 
 
-
-
 def top_5_categories():
-    
+    """Seu código deve vir aqui"""
