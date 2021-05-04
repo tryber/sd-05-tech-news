@@ -6,7 +6,7 @@ def csv_exporter(filepath):
     """Seu código deve vir aqui"""
     if not filepath.endswith(".csv"):
         raise ValueError("Formato invalido")
-    
+
     with open(filepath, "w") as file:
         csv_writer = csv.DictWriter(file, delimiter=";", header_ok=[
             "url",
