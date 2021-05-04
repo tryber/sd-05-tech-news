@@ -19,20 +19,20 @@ def csv_exporter(filepath):
             "sources",
             "categories",
         ])
-    csv_writer.writeheader()
+        csv_writer.writeheader()
 
-    for news in find_news():
-        article = {
-            "url": news["url"],
-            "title": news["title"],
-            "timestamp": news["timestamp"],
-            "writer": news["writer"],
-            "shares_count": str(news["shares_count"]),
-            "comments_count": str(news["comments_count"]),
-            "summary": news["summary"],
-            "sources": ",".join(news["sources"]),
-            "categories": ",".join(news["categories"])
-        }
+        for news in find_news():
+            article = {
+                "url": news["url"],
+                "title": news["title"],
+                "timestamp": news["timestamp"],
+                "writer": news["writer"],
+                "shares_count": str(news["shares_count"]),
+                "comments_count": str(news["comments_count"]),
+                "summary": news["summary"],
+                "sources": ",".join(news["sources"]),
+                "categories": ",".join(news["categories"])
+            }
 
-        csv_writer.writerow(article)
+            csv_writer.writerow(article)
         return news
