@@ -27,3 +27,28 @@ def find_news():
 
 def search_news(query):
     return list(db.news.find(query))
+
+
+def filter_top_5_news():
+    return list(db.news.aggregate(
+        [
+            {
+                "$match": {
+                    "shares_count": {"$gte": 0},
+                    "comments_count": {"$gte": 0},
+                        },
+            },
+            {
+                "$sort": {
+                    "shares_count": -1,
+                    "comments_count": -1,
+                    "title": 1
+                },
+            },
+            {"$project": {
+                "url": 1,
+                "title": 1,
+                "_id": 0}},
+            {"$limit": 5},
+        ]
+    ))
