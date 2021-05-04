@@ -35,3 +35,4 @@ def csv_exporter(filepath):
         }
 
         csv_writer.writerow(article)
+        return news
