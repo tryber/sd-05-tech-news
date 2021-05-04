@@ -4,6 +4,9 @@ import csv
 def csv_importer(filepath):
 
     data = []
+
+    if not filepath.endswith(".csv"):
+        raise ValueError("Formato invalido")
     try:
         with open(filepath) as file:
             read_file = csv.DictReader(file, delimiter=";")
