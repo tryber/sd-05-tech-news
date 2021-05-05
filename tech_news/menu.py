@@ -3,6 +3,13 @@ from tech_news.collector.importer import csv_importer
 from tech_news.collector.exporter import csv_exporter
 from tech_news.collector.scrapper import scrape, fetch_content
 from tech_news.database import create_news
+from tech_news.analyzer.search_engine import (
+    search_by_title,
+    search_by_date,
+    search_by_source,
+    search_by_category
+)
+from tech_news.analyzer.ratings import top_5_categories, top_5_news
 
 
 def collector_menu():
@@ -37,5 +44,43 @@ def collector_menu():
         sys.stderr.write("Opção inválida\n")
 
 
+def part1(value):
+    if value == "1":
+        search_by_title(input())
+
+    elif value == "2":
+        search_by_date(input())
+
+    elif value == "3":
+        search_by_source(input())
+
+    elif value == "4":
+        search_by_category(input())
+
+
 def analyzer_menu():
     """Seu código deve vir aqui"""
+    print("Selecione uma das opções a seguir:")
+    print(" 1 - Buscar notícias por título;")
+    print(" 2 - Buscar notícias por data;")
+    print(" 3 - Buscar notícias por fonte;")
+    print(" 4 - Buscar notícias por categoria;")
+    print(" 5 - Listar top 5 notícias;")
+    print(" 6 - Listar top 5 categorias;")
+    print(" 7 - Sair.")
+
+    value = input()
+
+    part1(value)
+
+    if value == "5":
+        top_5_news(input())
+
+    elif value == "6":
+        top_5_categories(input())
+
+    elif value == "7":
+        sys.stdout.write("Encerrando script\n")
+
+    else:
+        sys.stderr.write("Opção inválida\n")
