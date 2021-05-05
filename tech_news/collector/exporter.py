@@ -30,5 +30,5 @@ def csv_exporter(filepath):
                 "summary": noticia["summary"],
                 "sources": ",".join(noticia["sources"]),
                 "categories": ",".join(noticia["categories"]),
-            }         
+            }
             csv_file.writerow(data)
