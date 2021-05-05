@@ -38,6 +38,17 @@ def collector_menu():
         sys.stderr.write("Opção inválida\n")
 
 
+def analyzer1(options):
+    if options == "1":
+        search_by_title(input())
+    elif options == "2":
+        search_by_date(input())
+    elif options == "3":
+        search_by_source(input())
+    elif options == "4":
+        search_by_category(input())
+
+
 def analyzer_menu():
     print("Selecione uma das opções a seguir:")
     print(" 1 - Buscar notícias por título;")
@@ -48,15 +59,10 @@ def analyzer_menu():
     print(" 6 - Listar top 5 categorias;")
     print(" 7 - Sair.")
     options = input()
-    if options == "1":
-        search_by_title(input())
-    elif options == "2":
-        search_by_date(input())
-    elif options == "3":
-        search_by_source(input())
-    elif options == "4":
-        search_by_category(input())
-    elif options == "5":
+
+    analyzer1(options)
+
+    if options == "5":
         top_5_news(input())
     elif options == "6":
         top_5_categories(input())
