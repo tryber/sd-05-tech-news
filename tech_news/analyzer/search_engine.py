@@ -20,6 +20,7 @@ def search_by_date(date):
     else:
         if len(news) == 0:
             return news
+
     return [(news[0]["title"], news[0]["url"])]
 
 
@@ -41,4 +42,5 @@ def search_by_category(category):
 
     if len(news) == 0:
         return news
+
     return [(news[0]["title"], news[0]["url"])]
