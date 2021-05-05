@@ -13,5 +13,4 @@ def csv_importer(filepath):
                 values = content
                 return [values]
     except FileNotFoundError:
-
         raise ValueError(f"Arquivo {filepath} não encontrado")
