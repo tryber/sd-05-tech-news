@@ -28,7 +28,7 @@ def collector_menu():
     elif options == "4":
         sys.stdout.write("Encerrando script\n")
     else:
-        sys.stderr.write("Opção inválida\n") 
+        sys.stderr.write("Opção inválida\n")
 
-def analyzer_menu():
-    """Seu código deve vir aqui"""
+
+# def analyzer_menu():
