@@ -18,7 +18,7 @@ def collector_menu():
     if value == "1":
         print("Digite o nome do arquivo CSV a ser importado:")
         import_csv = input()
-        csv_importer(import_csv)
+        create_news(csv_importer(import_csv))
 
     elif value == "2":
         print("Digite o nome do arquivo CSV a ser exportado:")
@@ -28,7 +28,7 @@ def collector_menu():
     elif value == "3":
         print("Digite a quantidade de páginas a serem raspadas:")
         pages = input()
-        create_news(scrape(fetcher=fetch_content, pages=int (pages)))
+        create_news(scrape(fetcher=fetch_content, pages=int(pages)))
 
     elif value == "4":
         sys.stdout.write("Encerrando script\n")
