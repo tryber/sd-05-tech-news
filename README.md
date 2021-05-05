@@ -452,7 +452,7 @@ Obs: Caso o arquivo não exista e tenha extensão inválida, a exceção lançad
 
 📌Um exemplo de arquivo `CSV` pode ser encontrado na seção de [dados](#dados).
 
-✍️  Teste manual: abra um terminal Python importando esta função através do comando `python3 -i tech_news/collector/importer.py` e invoque a função utilizando diferentes parâmetros. Exemplo: `csv_importer("testdata.csv")`.
+✍️  Teste manual: abra um terminal Python importando esta função através do comando `python3 -i tech_news/collector/importer.py` e inv  oque a função utilizando diferentes parâmetros. Exemplo: `csv_importer("testdata.csv")`.
 
 #### 4 - Crie uma função `csv_exporter` dentro do módulo `tech_news/collector/exporter.py` capaz de exportar todas as notícias do banco de dados para um arquivo CSV, utilizando ";" como separador.
 
