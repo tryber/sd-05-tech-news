@@ -28,11 +28,10 @@ def parse_list(data):
 
 
 def csv_exporter(filepath, cur=cursor):
-    """Seu código deve vir aqui"""
     try:
         assert filepath.endswith('.csv')
     except AssertionError:
-        raise ValueError("Invalid format")
+        raise ValueError("Formato inválido")
     else:
         all_news = []
         news = cur()
@@ -51,4 +50,3 @@ if __name__ == "__main__":
         db = client.tech_news
         db.news.delete_many({})
         db.news.insert_one(NEW_POST)
-        print(csv_exporter("matheus.csv"))
