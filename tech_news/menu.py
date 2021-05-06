@@ -14,7 +14,7 @@ from tech_news.analyzer.ratings import (
 )
 from tech_news.database import create_news
 
-RESULT = {"error": "Invalid option", "exit": "Hasta la vista, baby.\n"}
+RESULT = {"error": "Opção inválida", "exit": "Encerrando script\n"}
 
 menu_collector = (
     "Selecione uma das opções a seguir:\n"
@@ -37,7 +37,6 @@ def execute_option(answer):
         data = csv_importer(option)
         create_news(data)
     elif answer == "3":
-        print(">>>> item 3")
         option = int(input("Digite a quantidade de páginas a serem raspadas:"))
         data = scrape(fetcher=fetch_content, pages=option)
         create_news(data)
@@ -81,4 +80,4 @@ def analyzer_menu():
         resp = input(analyze_messages.get(answer))
         issue = execute_analyzer.get(answer)(resp)
     else:
-        print("Invalid option", file=sys.stderr)
+        print("Opção inválida", file=sys.stderr)
