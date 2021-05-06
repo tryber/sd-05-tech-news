@@ -4,6 +4,7 @@ from tech_news.model import tech_news_model
 cursor = tech_news_model.find_cursor
 PROJECTION = {"_id": False, "title": True, "url": True}
 
+
 def top_5_news():
     agg_search = [
         {
@@ -32,6 +33,7 @@ def top_5_news():
         return []
     result = [(item["title"], item["url"]) for item in search]
     return result
+
 
 def top_5_categories():
     get_categories = cursor(projection={"categories": True, "_id": False})

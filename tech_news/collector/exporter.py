@@ -16,6 +16,7 @@ NEW_POST = {
 
 cursor = tech_news_model.find_cursor
 
+
 def parse_list(data):
     new_data = []
     for item in data:

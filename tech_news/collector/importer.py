@@ -1,10 +1,12 @@
 import csv
 
+
 def assemble_news(header, news_data):
     news = {}
     for field in header:
         news[field] = news_data[header.index(field)]
     return news
+
 
 def csv_importer(filepath, assembler=assemble_news):
     """Seu código deve vir aqui"""

@@ -31,6 +31,7 @@ analyze_messages = {
     "4": "Digite a categoria:",
 }
 
+
 def execute_option(answer):
     if answer == "1":
         option = input("Digite o nome do arquivo CSV a ser importado:")
@@ -45,6 +46,7 @@ def execute_option(answer):
         option = input()
         csv_exporter(option)
 
+
 def collector_menu():
     answer = input(menu_collector)
     if answer not in ["1", "2", "3", "4"]:
@@ -53,6 +55,7 @@ def collector_menu():
         print(RESULT["exit"])
     else:
         execute_option(answer)
+
 
 execute_analyzer = {
     "1": lambda x: search_by_title(x),
@@ -63,6 +66,7 @@ execute_analyzer = {
     "6": lambda _: top_5_categories(),
     "7": lambda _: print("Encerrando script\n"),
 }
+
 
 def analyzer_menu():
     answer = input(

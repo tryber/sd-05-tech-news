@@ -3,6 +3,7 @@ from tech_news.model import tech_news_model
 cursor = tech_news_model.find_cursor
 PROJECTION = {"_id": False, "title": True, "url": True}
 
+
 def validate_date(date):
     year, month, day = date.split("-")
     try:
@@ -10,9 +11,10 @@ def validate_date(date):
         assert len(month) == 2
         assert len(day) == 2
     except AssertionError:
-        raise ValueError("Invalid date")
+        raise ValueError("Data inválida")
     else:
         return date
+
 
 def search_by_title(title):
     PARAMS = {"title": {"$regex": f".*{title}.*", "$options": "i"}}
@@ -21,6 +23,7 @@ def search_by_title(title):
         return []
     result = [tuple(reversed(item.values())) for item in search]
     return result
+
 
 def search_by_date(date, validator=validate_date):
     valid_date = validator(date)
@@ -31,6 +34,7 @@ def search_by_date(date, validator=validate_date):
     result = [tuple(reversed(item.values())) for item in search]
     return result
 
+
 def search_by_source(source):
     PARAMS = {"sources": {"$regex": source, "$options": "i"}}
     search = cursor(params=PARAMS, projection=PROJECTION)
@@ -38,6 +42,7 @@ def search_by_source(source):
         return []
     result = [tuple(reversed(item.values())) for item in search]
     return result
+
 
 def search_by_category(category):
     PARAMS = {"categories": {"$regex": category, "$options": "i"}}
