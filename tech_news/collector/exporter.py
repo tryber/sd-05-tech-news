@@ -31,7 +31,7 @@ def csv_exporter(filepath, cur=cursor):
     try:
         assert filepath.endswith('.csv')
     except AssertionError:
-        raise ValueError("Formato inválido")
+        raise ValueError("Formato invalido")
     else:
         all_news = []
         news = cur()
