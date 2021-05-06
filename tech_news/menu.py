@@ -79,9 +79,10 @@ def analyzer_menu():
         + " 6 - Listar top 5 categorias;\n"
         + " 7 - Sair."
     )
-    # issue = RESULT['error']
+    issue = RESULT['error']
     if answer in execute_analyzer.keys():
         resp = input(analyze_messages.get(answer))
         issue = execute_analyzer.get(answer)(resp)
+        print(issue)
     else:
         print("Opção inválida", file=sys.stderr)
